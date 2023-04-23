@@ -31,7 +31,7 @@ def baseChanger_all_dec(num,base):
     for i in reversed(str(num)):
         if i in dic_hex.keys():
             i=dic_hex.get(i)
-        s.append(int(i)*(base**cont))
+        s.append(int(i)(base*cont))
         cont+=1
     return sum(s)
 
@@ -47,35 +47,58 @@ def baseChanger_oct_dec(num):
 
 #Pasaje de Binario a Octal y Hexadecimal
 
-def baseChanger_bin_oct_and_hex(num,base):
-    num=str(num)
+def baseChanger_bin_to_oct_and_hex(num,base):
+    cadena_final= ''
     if base==8:
-
-        dic_bin = {"000": 0, "001": 1, "010": 2, "011": 3, "100": 4, "101": 5, "110": 6, "111": 7}
-        if len(num)%base==0:
-            for i in range(0,len(num),base):
-                if i in dic_bin.keys():
-                    i=i.get(i)
-                    i+=i
-        else:
-            print('casi')
-
+        dic_bin = {"000": '0', "001": '1', "010": '2', "011": '3', "100": '4', "101": '5', "110": '6', "111": '7'}
+        salto=3
     elif base==16:
+        dic_bin = {
+            "0000": '0', "0001" : '1', "0010" : '2', "0011" : '3', "0100" : '4', "0101" : '5', "0110" : '6', "0111" : '7', "1000" : '8', "1001" : '9',
+              '1010' : 'A', '1011' : 'B', '1100' : 'C', '1101' : 'D', '1110' : 'E', '1111' : 'F'}
+        salto=4
+    for i in range (0,len(str(num)),salto):
+        num_3=str(num)[i:i+salto]
+        if num_3 in dic_bin.keys():
+            cadena_final+=str(dic_bin.get(num_3))
 
-        dic_bin = {"0000": 0, "0001": 1, "0010": 2, "0011": 3, "0100": 4, "0101": 5, "0110": 6, "0111": 7, "1000": 8, "1001": 9}
-        if len(num)%base==0:
-            for i in range(0,len(num),base):
-                if i in dic_bin.keys():
-                    i=i.get(i)
-                    i+=i
-        else:
-            print('casi')
-    return i
+    return cadena_final
 
 def baseChanger_bin_oct(num):
-    return baseChanger_bin_oct_and_hex(num,8)
+    return baseChanger_bin_to_oct_and_hex(num,8)
 
 def baseChanger_bin_hex(num):
-    return baseChanger_bin_oct_and_hex(num,16)
+    return baseChanger_bin_to_oct_and_hex(num,16)
 
-print(baseChanger_bin_oct(1010))
+
+#Pasaje de Octal a Binario y Hexadecimal
+
+def baseChanger_oct_to_bin_and_hex(num,base):
+    cadena_final=''
+    if base==2:
+        dic={'0' : "000", '1' : "001", '2' : "010", '3' : "011", '4' : "100", '5' : "101" , '6' : "110", '7' : "111"}
+        for i in str(num):
+            if i in dic.keys():
+                cadena_final+=str(dic.get(i))
+    elif base==16:
+        cadena_final=hex(num)
+    return cadena_final
+
+def baseChanger_oct_bin(num):
+    return baseChanger_oct_to_bin_and_hex(num,2)
+
+def baseChanger_oct_hex(num):
+    return baseChanger_oct_to_bin_and_hex(num,16)
+
+#ver oct to hex
+
+#Pasaje de Hexadecimal a Binario y Octal
+
+def baseChanger_hex_to_bin_and_oct(num,base):
+    cadena_final=''
+        
+def baseChanger_hex_bin(num):
+    return baseChanger_hex_to_bin_and_oct(num,2)
+
+def baseChanger_hex_oct(num):
+    return baseChanger_hex_to_bin_and_oct(num,8)
