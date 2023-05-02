@@ -1,16 +1,17 @@
 #Pasaje de Decimal a Cualquier Base
 
-def baseChanger_dec_all(num,base):
-    s = ''
-    s_new= ''
-    while num>0:
-        resto=num%base
-        if resto>9:
-            resto = {10:'A', 11:'B', 12:'C', 13:'D', 14:'E', 15:'F'}.get(resto)
-        s += str(resto)
-        num=num//base
-    s_new=s[::-1]
-    return s_new    
+def baseChanger_dec_all(num, base):
+    if num == 0:
+        return "0"
+
+    digitos_base = []
+
+    while num > 0:
+        residuo = num % base
+        digitos_base.append(str(residuo))
+        num = num // base
+
+    return "".join(digitos_base[::-1])  
 
 def baseChanger_dec_bin(num):
     return baseChanger_dec_all(num,2)
@@ -24,16 +25,15 @@ def baseChanger_dec_oct(num):
 
 #Pasaje de Cualquier Base a Decimal
 
-def baseChanger_all_dec(num,base):
-    n = 0
-    num = str(num)
-    num = num[::-1]
-    for i in range(len(num)):
-        if num[i].isdigit():
-            n += int(num[i]) * base**i
-        else:
-            n += {10:'A', 11:'B', 12:'C', 13:'D', 14:'E', 15:'F'}.get(num[i]) * base**i
-    return n
+def baseChanger_all_dec(num, base):
+    digitos = list(str(num))
+    digitos.reverse()
+    resultado = 0
+    for i in range(len(digitos)):
+        valor = int(digitos[i], base)
+        resultado += valor * (base ** i)
+
+    return resultado
 
 def baseChanger_bin_dec(num):
     return baseChanger_all_dec(num,2)
@@ -88,6 +88,3 @@ def baseChanger_hex_bin(num):
 
 def baseChanger_hex_oct(num):
     return baseChanger_hex_to_bin_and_oct(num,8)
-
-
-
